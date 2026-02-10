@@ -16,6 +16,13 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={inter.variable}>
+      <head>
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6540797109919231"
+          crossOrigin="anonymous"
+        />
+      </head>
       <body className={`${inter.className} bg-white text-slate-900 antialiased`}>
         {children}
       </body>

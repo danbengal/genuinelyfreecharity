@@ -1,5 +1,9 @@
 "use client";
 
+import { useEffect, useRef } from "react";
+
+const ADSENSE_CLIENT_ID = "ca-pub-6540797109919231";
+
 interface AdSlotProps {
   slot: string;
   format?: "auto" | "horizontal" | "vertical" | "rectangle";
@@ -7,29 +11,25 @@ interface AdSlotProps {
 }
 
 export default function AdSlot({ slot, format = "auto", className = "" }: AdSlotProps) {
-  const clientId = process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID;
+  const adRef = useRef<HTMLDivElement>(null);
+  const pushed = useRef(false);
 
-  if (!clientId) {
-    return (
-      <div className={`bg-gray-50 border-2 border-dashed border-slate-200 rounded-xl flex items-center justify-center ${className}`}>
-        <div className="text-center p-6">
-          <div className="inline-block px-3 py-1 bg-slate-100 text-slate-400 text-xs font-medium rounded-full mb-2">
-            Ad
-          </div>
-          <div className="text-xs text-slate-400">
-            {slot} · {format}
-          </div>
-        </div>
-      </div>
-    );
-  }
+  useEffect(() => {
+    if (pushed.current) return;
+    try {
+      ((window as any).adsbygoogle = (window as any).adsbygoogle || []).push({});
+      pushed.current = true;
+    } catch (e) {
+      // AdSense not loaded yet or ad blocker
+    }
+  }, []);
 
   return (
-    <div className={className}>
+    <div className={className} ref={adRef}>
       <ins
         className="adsbygoogle"
         style={{ display: "block" }}
-        data-ad-client={clientId}
+        data-ad-client={ADSENSE_CLIENT_ID}
         data-ad-slot={slot}
         data-ad-format={format}
         data-full-width-responsive="true"
