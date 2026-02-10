@@ -51,71 +51,137 @@ export default function AllocationLedger() {
   };
 
   if (entries.length === 0) {
-    return <p className="text-gray-500 text-center py-4">No allocations recorded yet.</p>;
+    return (
+      <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-12 text-center">
+        <div className="text-4xl mb-3 opacity-50">📋</div>
+        <p className="text-slate-600">No allocations recorded yet.</p>
+        <p className="text-sm text-slate-400 mt-1">Transparency ledger will appear here.</p>
+      </div>
+    );
   }
 
   return (
     <div>
-      <div className="flex justify-end mb-3">
-        <button onClick={downloadCSV} className="text-sm text-blue-600 hover:underline">
+      {/* Download button */}
+      <div className="flex justify-end mb-4">
+        <button
+          onClick={downloadCSV}
+          className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-blue-600 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-colors"
+        >
+          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
           Download CSV
         </button>
       </div>
 
       {/* Desktop/Tablet table */}
-      <div className="hidden sm:block overflow-x-auto">
-        <table className="w-full text-left text-sm">
-          <thead>
-            <tr className="border-b border-gray-200 text-gray-500">
-              <th className="py-2 px-3 font-medium">Date</th>
-              <th className="py-2 px-3 font-medium">Recipient</th>
-              <th className="py-2 px-3 font-medium">Period</th>
-              <th className="py-2 px-3 font-medium">Gross</th>
-              <th className="py-2 px-3 font-medium">Costs</th>
-              <th className="py-2 px-3 font-medium">Net</th>
-              <th className="py-2 px-3 font-medium">Proof</th>
-              <th className="py-2 px-3 font-medium">Notes</th>
-            </tr>
-          </thead>
-          <tbody>
-            {entries.map((e) => (
-              <tr key={e.id} className="border-b border-gray-100">
-                <td className="py-2 px-3 whitespace-nowrap">{new Date(e.allocatedAt).toLocaleDateString()}</td>
-                <td className="py-2 px-3">{e.recipientName}</td>
-                <td className="py-2 px-3">{e.periodLabel}</td>
-                <td className="py-2 px-3">{formatCurrency(e.grossRevenue)}</td>
-                <td className="py-2 px-3">{formatCurrency(e.operatingCosts)}</td>
-                <td className="py-2 px-3 font-medium">{formatCurrency(e.netAmount)}</td>
-                <td className="py-2 px-3">
-                  {e.proofUrl ? <a href={e.proofUrl} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">View</a> : "—"}
-                </td>
-                <td className="py-2 px-3 text-gray-500">{e.notes || "—"}</td>
+      <div className="hidden sm:block bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead className="bg-gray-50 border-b border-slate-200">
+              <tr>
+                <th className="py-3 px-4 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">Date</th>
+                <th className="py-3 px-4 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">Recipient</th>
+                <th className="py-3 px-4 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">Period</th>
+                <th className="py-3 px-4 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">Gross</th>
+                <th className="py-3 px-4 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">Costs</th>
+                <th className="py-3 px-4 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">Net</th>
+                <th className="py-3 px-4 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">Proof</th>
+                <th className="py-3 px-4 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">Notes</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody className="divide-y divide-slate-100">
+              {entries.map((e) => (
+                <tr key={e.id} className="hover:bg-gray-50 transition-colors">
+                  <td className="py-3 px-4 whitespace-nowrap text-slate-700">
+                    {new Date(e.allocatedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                  </td>
+                  <td className="py-3 px-4 font-medium text-slate-900">{e.recipientName}</td>
+                  <td className="py-3 px-4 text-slate-600">{e.periodLabel}</td>
+                  <td className="py-3 px-4 text-slate-700">{formatCurrency(e.grossRevenue)}</td>
+                  <td className="py-3 px-4 text-slate-700">{formatCurrency(e.operatingCosts)}</td>
+                  <td className="py-3 px-4 font-semibold text-slate-900">{formatCurrency(e.netAmount)}</td>
+                  <td className="py-3 px-4">
+                    {e.proofUrl ? (
+                      <a
+                        href={e.proofUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-600 hover:text-blue-700 hover:underline transition-colors"
+                      >
+                        View
+                      </a>
+                    ) : (
+                      <span className="text-slate-400">—</span>
+                    )}
+                  </td>
+                  <td className="py-3 px-4 text-slate-500 max-w-xs truncate">
+                    {e.notes || <span className="text-slate-400">—</span>}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
 
       {/* Mobile cards */}
-      <div className="sm:hidden space-y-3">
+      <div className="sm:hidden space-y-4">
         {entries.map((e) => (
-          <div key={e.id} className="bg-white rounded-lg border border-gray-200 p-4 text-sm">
-            <div className="flex justify-between items-start mb-2">
-              <span className="font-medium text-gray-900">{e.recipientName}</span>
-              <span className="text-gray-500 text-xs">{new Date(e.allocatedAt).toLocaleDateString()}</span>
+          <div
+            key={e.id}
+            className="bg-white rounded-xl border border-slate-200 shadow-sm p-5"
+          >
+            <div className="flex items-start justify-between mb-3">
+              <span className="font-semibold text-slate-900">{e.recipientName}</span>
+              <span className="text-xs text-slate-500">
+                {new Date(e.allocatedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+              </span>
             </div>
-            <div className="text-gray-500 text-xs mb-2">{e.periodLabel}</div>
-            <div className="grid grid-cols-3 gap-2 text-xs">
-              <div><span className="text-gray-500">Gross:</span> {formatCurrency(e.grossRevenue)}</div>
-              <div><span className="text-gray-500">Costs:</span> {formatCurrency(e.operatingCosts)}</div>
-              <div><span className="text-gray-500">Net:</span> <span className="font-medium">{formatCurrency(e.netAmount)}</span></div>
+            
+            <div className="text-xs text-slate-500 mb-4">{e.periodLabel}</div>
+            
+            <div className="grid grid-cols-3 gap-3 mb-4">
+              <div>
+                <div className="text-xs text-slate-400 mb-1">Gross</div>
+                <div className="text-sm font-medium text-slate-700">
+                  {formatCurrency(e.grossRevenue)}
+                </div>
+              </div>
+              <div>
+                <div className="text-xs text-slate-400 mb-1">Costs</div>
+                <div className="text-sm font-medium text-slate-700">
+                  {formatCurrency(e.operatingCosts)}
+                </div>
+              </div>
+              <div>
+                <div className="text-xs text-slate-400 mb-1">Net</div>
+                <div className="text-sm font-bold text-slate-900">
+                  {formatCurrency(e.netAmount)}
+                </div>
+              </div>
             </div>
+            
             {e.proofUrl && (
-              <a href={e.proofUrl} target="_blank" rel="noopener noreferrer" className="mt-2 inline-block text-blue-600 hover:underline text-xs">
+              <a
+                href={e.proofUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 text-xs text-blue-600 hover:text-blue-700 hover:underline transition-colors mb-2"
+              >
+                <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
                 View proof
               </a>
             )}
-            {e.notes && <p className="mt-1 text-gray-500 text-xs">{e.notes}</p>}
+            
+            {e.notes && (
+              <p className="text-xs text-slate-500 mt-2 pt-2 border-t border-slate-100">
+                {e.notes}
+              </p>
+            )}
           </div>
         ))}
       </div>

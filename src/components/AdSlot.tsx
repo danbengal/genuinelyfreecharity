@@ -11,10 +11,14 @@ export default function AdSlot({ slot, format = "auto", className = "" }: AdSlot
 
   if (!clientId) {
     return (
-      <div className={`bg-gray-100 border border-dashed border-gray-300 rounded-lg flex items-center justify-center text-gray-400 text-sm ${className}`}>
-        <div className="text-center p-4">
-          <div className="text-lg mb-1">Ad Space</div>
-          <div className="text-xs">Slot: {slot} • {format}</div>
+      <div className={`bg-gray-50 border-2 border-dashed border-slate-200 rounded-xl flex items-center justify-center ${className}`}>
+        <div className="text-center p-6">
+          <div className="inline-block px-3 py-1 bg-slate-100 text-slate-400 text-xs font-medium rounded-full mb-2">
+            Ad
+          </div>
+          <div className="text-xs text-slate-400">
+            {slot} · {format}
+          </div>
         </div>
       </div>
     );
