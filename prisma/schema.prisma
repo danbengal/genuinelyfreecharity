@@ -1,0 +1,111 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Poll {
+  id        String       @id @default(cuid())
+  question  String
+  isActive  Boolean      @default(false)
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+  options   PollOption[]
+  votes     Vote[]
+}
+
+model PollOption {
+  id     String @id @default(cuid())
+  text   String
+  pollId String
+  poll   Poll   @relation(fields: [pollId], references: [id], onDelete: Cascade)
+  votes  Vote[]
+
+  @@index([pollId])
+}
+
+model Vote {
+  id        String     @id @default(cuid())
+  pollId    String
+  optionId  String
+  fingerprint String
+  createdAt DateTime   @default(now())
+  poll      Poll       @relation(fields: [pollId], references: [id], onDelete: Cascade)
+  option    PollOption @relation(fields: [optionId], references: [id], onDelete: Cascade)
+
+  @@index([pollId])
+  @@index([fingerprint, pollId])
+}
+
+model ParticipationLimit {
+  id          String   @id @default(cuid())
+  fingerprint String
+  pollId      String
+  expiresAt   DateTime
+  createdAt   DateTime @default(now())
+
+  @@unique([fingerprint, pollId])
+  @@index([fingerprint])
+}
+
+model Recipient {
+  id          String       @id @default(cuid())
+  name        String
+  website     String?
+  createdAt   DateTime     @default(now())
+  allocations Allocation[]
+}
+
+model ReportingPeriod {
+  id        String      @id @default(cuid())
+  label     String
+  startDate DateTime
+  endDate   DateTime
+  createdAt DateTime    @default(now())
+  revenues  AdSenseRevenueReport[]
+  costs     OperatingCost[]
+  allocations Allocation[]
+}
+
+model AdSenseRevenueReport {
+  id                String          @id @default(cuid())
+  reportingPeriodId String
+  amount            Float
+  notes             String?
+  createdAt         DateTime        @default(now())
+  reportingPeriod   ReportingPeriod @relation(fields: [reportingPeriodId], references: [id], onDelete: Cascade)
+
+  @@index([reportingPeriodId])
+}
+
+model OperatingCost {
+  id                String          @id @default(cuid())
+  reportingPeriodId String
+  description       String
+  amount            Float
+  createdAt         DateTime        @default(now())
+  reportingPeriod   ReportingPeriod @relation(fields: [reportingPeriodId], references: [id], onDelete: Cascade)
+
+  @@index([reportingPeriodId])
+}
+
+model Allocation {
+  id                String          @id @default(cuid())
+  recipientId       String
+  reportingPeriodId String
+  grossRevenue      Float
+  operatingCosts    Float
+  netAmount         Float
+  proofUrl          String?
+  notes             String?
+  allocatedAt       DateTime        @default(now())
+  createdAt         DateTime        @default(now())
+  recipient         Recipient       @relation(fields: [recipientId], references: [id])
+  reportingPeriod   ReportingPeriod @relation(fields: [reportingPeriodId], references: [id])
+
+  @@index([recipientId])
+  @@index([reportingPeriodId])
+}
