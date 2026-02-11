@@ -74,13 +74,14 @@ export default function PollModule() {
 
   if (loading) {
     return (
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-8 animate-pulse">
-        <div className="h-7 bg-slate-100 rounded-lg w-3/4 mb-6" />
-        <div className="space-y-4">
-          {[1, 2, 3].map((i) => (
-            <div key={i} className="h-16 bg-slate-50 rounded-xl" />
+      <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-4 sm:p-6 md:p-8 animate-pulse">
+        <div className="h-6 sm:h-7 bg-slate-100 rounded-lg w-3/4 mb-4 sm:mb-6" />
+        <div className="space-y-2.5 sm:space-y-3 mb-4 sm:mb-6">
+          {[1, 2, 3, 4].map((i) => (
+            <div key={i} className="h-14 sm:h-16 bg-slate-50 rounded-lg sm:rounded-xl" />
           ))}
         </div>
+        <div className="h-12 sm:h-14 bg-blue-100 rounded-lg sm:rounded-xl" />
       </div>
     );
   }
@@ -106,24 +107,24 @@ export default function PollModule() {
   const totalVotes = poll.options.reduce((sum, o) => sum + (o._count?.votes || 0), 0);
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-8 animate-fade-in">
+    <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-4 sm:p-6 md:p-8 animate-fade-in">
       {/* Header */}
-      <div className="mb-6">
+      <div className="mb-4 sm:mb-6">
         <div className="flex items-center gap-2 mb-2">
           <div className="w-1.5 h-1.5 rounded-full bg-blue-600" />
-          <h2 className="text-sm font-semibold text-slate-500 uppercase tracking-wide">
+          <h2 className="text-xs sm:text-sm font-semibold text-slate-500 uppercase tracking-wide">
             Today&apos;s Question
           </h2>
         </div>
-        <h3 className="text-2xl font-bold text-slate-900 leading-tight">
+        <h3 className="text-xl sm:text-2xl font-bold text-slate-900 leading-tight">
           {poll.question}
         </h3>
       </div>
 
       {/* Already voted notice */}
       {submitted && poll.alreadyVoted && poll.nextAvailable && (
-        <div className="mb-6 p-4 bg-blue-50 border border-blue-100 rounded-xl">
-          <p className="text-sm text-blue-700 leading-relaxed">
+        <div className="mb-4 sm:mb-6 p-3 sm:p-4 bg-blue-50 border border-blue-100 rounded-xl">
+          <p className="text-xs sm:text-sm text-blue-700 leading-relaxed">
             ✨ Thanks for coming back! You can participate again at{" "}
             <span className="font-medium">
               {new Date(poll.nextAvailable).toLocaleString()}
@@ -133,7 +134,7 @@ export default function PollModule() {
       )}
 
       {/* Options */}
-      <div className="space-y-3 mb-6">
+      <div className="space-y-2.5 sm:space-y-3 mb-4 sm:mb-6">
         {poll.options.map((option) => {
           const votes = option._count?.votes || 0;
           const pct = totalVotes > 0 ? Math.round((votes / totalVotes) * 100) : 0;
@@ -142,23 +143,23 @@ export default function PollModule() {
             return (
               <div
                 key={option.id}
-                className="relative overflow-hidden rounded-xl border border-slate-200 bg-gray-50 group"
+                className="relative overflow-hidden rounded-lg sm:rounded-xl border border-slate-200 bg-gray-50 group"
               >
                 {/* Animated gradient bar */}
                 <div
-                  className="absolute inset-y-0 left-0 bg-gradient-to-r from-blue-500 to-blue-400 opacity-20 animate-slide-in"
+                  className="absolute inset-y-0 left-0 bg-gradient-to-r from-blue-500 to-blue-400 opacity-20 transition-all duration-700 ease-out"
                   style={{ width: `${pct}%` }}
                 />
                 
-                <div className="relative flex items-center justify-between p-5">
-                  <span className="font-medium text-slate-900 pr-4">
+                <div className="relative flex items-center justify-between p-3.5 sm:p-4 md:p-5">
+                  <span className="font-medium text-slate-900 pr-3 sm:pr-4 text-sm sm:text-base">
                     {option.text}
                   </span>
-                  <div className="flex items-center gap-3 shrink-0">
-                    <span className="text-2xl font-bold text-blue-600">
+                  <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+                    <span className="text-xl sm:text-2xl font-bold text-blue-600">
                       {pct}%
                     </span>
-                    <span className="text-sm text-slate-500">
+                    <span className="text-xs sm:text-sm text-slate-500">
                       ({votes.toLocaleString()})
                     </span>
                   </div>
@@ -171,27 +172,27 @@ export default function PollModule() {
             <button
               key={option.id}
               onClick={() => setSelected(option.id)}
-              className={`w-full text-left p-5 rounded-xl border-2 transition-all group ${
+              className={`w-full text-left p-3.5 sm:p-4 md:p-5 rounded-lg sm:rounded-xl border-2 transition-all group active:scale-[0.98] touch-manipulation ${
                 selected === option.id
-                  ? "border-blue-600 bg-blue-50 shadow-md scale-[1.02]"
+                  ? "border-blue-600 bg-blue-50 shadow-md sm:scale-[1.02]"
                   : "border-slate-200 hover:border-slate-300 hover:bg-gray-50 hover:shadow-sm"
               }`}
             >
-              <div className="flex items-center gap-4">
-                {/* Radio indicator */}
+              <div className="flex items-center gap-3 sm:gap-4">
+                {/* Radio indicator - larger for touch */}
                 <div
-                  className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 transition-all ${
+                  className={`w-6 h-6 sm:w-5 sm:h-5 rounded-full border-2 flex items-center justify-center shrink-0 transition-all ${
                     selected === option.id
                       ? "border-blue-600 bg-blue-600"
                       : "border-slate-300 group-hover:border-slate-400"
                   }`}
                 >
                   {selected === option.id && (
-                    <div className="w-2 h-2 bg-white rounded-full" />
+                    <div className="w-2.5 h-2.5 sm:w-2 sm:h-2 bg-white rounded-full" />
                   )}
                 </div>
                 
-                <span className="font-medium text-slate-900 text-lg">
+                <span className="font-medium text-slate-900 text-base sm:text-lg leading-snug">
                   {option.text}
                 </span>
               </div>
@@ -200,12 +201,12 @@ export default function PollModule() {
         })}
       </div>
 
-      {/* Submit button */}
+      {/* Submit button - larger touch target */}
       {!submitted && (
         <button
           onClick={handleSubmit}
           disabled={!selected || submitting}
-          className="w-full py-4 px-6 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-sm hover:shadow-md disabled:hover:shadow-sm"
+          className="w-full py-4 sm:py-4 px-6 bg-blue-600 text-white font-semibold rounded-lg sm:rounded-xl hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-sm hover:shadow-md disabled:hover:shadow-sm active:scale-[0.98] touch-manipulation text-base sm:text-lg"
         >
           {submitting ? (
             <span className="flex items-center justify-center gap-2">
@@ -223,8 +224,8 @@ export default function PollModule() {
 
       {/* Results footer */}
       {submitted && (
-        <div className="mt-6 pt-6 border-t border-slate-200 text-center">
-          <p className="text-sm text-slate-500">
+        <div className="mt-4 sm:mt-6 pt-4 sm:pt-6 border-t border-slate-200 text-center">
+          <p className="text-xs sm:text-sm text-slate-500">
             <span className="font-semibold text-slate-700">
               {totalVotes.toLocaleString()}
             </span>{" "}

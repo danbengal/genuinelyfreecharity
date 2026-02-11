@@ -37,20 +37,20 @@ export default function FAQ() {
   const [open, setOpen] = useState<number | null>(null);
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-2.5 sm:space-y-3">
       {faqs.map((faq, i) => {
         const isOpen = open === i;
         
         return (
           <div
             key={i}
-            className="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow"
+            className="bg-white border border-slate-200 rounded-lg sm:rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow"
           >
             <button
               onClick={() => setOpen(isOpen ? null : i)}
-              className="w-full text-left p-5 flex items-center justify-between gap-4 hover:bg-gray-50 transition-colors group"
+              className="w-full text-left p-4 sm:p-5 flex items-center justify-between gap-3 sm:gap-4 hover:bg-gray-50 transition-colors group touch-manipulation"
             >
-              <span className="font-medium text-slate-900 pr-4 text-base">
+              <span className="font-medium text-slate-900 pr-2 sm:pr-4 text-sm sm:text-base leading-snug">
                 {faq.q}
               </span>
               
@@ -78,7 +78,7 @@ export default function FAQ() {
                 isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
               }`}
             >
-              <div className="px-5 pb-5 text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-4">
+              <div className="px-4 sm:px-5 pb-4 sm:pb-5 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-3 sm:pt-4">
                 {faq.a}
               </div>
             </div>

@@ -18,7 +18,7 @@ export default function Home() {
       </div>
 
       {/* Main content with optional side rails */}
-      <main className="flex-1 max-w-7xl mx-auto w-full px-4 py-8">
+      <main className="flex-1 max-w-7xl mx-auto w-full px-3 sm:px-4 py-6 sm:py-8">
         <div className="flex gap-6">
           {/* Left rail ad - desktop only */}
           <aside className="hidden lg:block w-40 shrink-0">
@@ -28,7 +28,7 @@ export default function Home() {
           </aside>
 
           {/* Center content */}
-          <div className="flex-1 min-w-0 space-y-12">
+          <div className="flex-1 min-w-0 space-y-8 sm:space-y-12">
             {/* Poll */}
             <section>
               <PollModule />
@@ -41,11 +41,11 @@ export default function Home() {
 
             {/* Impact Dashboard */}
             <section>
-              <div className="mb-6">
-                <h2 className="text-2xl font-bold text-slate-900 mb-2">
+              <div className="mb-4 sm:mb-6">
+                <h2 className="text-xl sm:text-2xl font-bold text-slate-900 mb-1 sm:mb-2">
                   Impact Dashboard
                 </h2>
-                <p className="text-slate-600 text-sm">
+                <p className="text-slate-600 text-xs sm:text-sm">
                   Real-time transparency into ad revenue and allocations
                 </p>
               </div>
@@ -54,11 +54,11 @@ export default function Home() {
 
             {/* Organization Totals */}
             <section>
-              <div className="mb-6">
-                <h2 className="text-2xl font-bold text-slate-900 mb-2">
+              <div className="mb-4 sm:mb-6">
+                <h2 className="text-xl sm:text-2xl font-bold text-slate-900 mb-1 sm:mb-2">
                   Organizations Supported
                 </h2>
-                <p className="text-slate-600 text-sm">
+                <p className="text-slate-600 text-xs sm:text-sm">
                   Lifetime and current month contributions to each charity
                 </p>
               </div>
@@ -72,11 +72,11 @@ export default function Home() {
 
             {/* Allocation Ledger */}
             <section>
-              <div className="mb-6">
-                <h2 className="text-2xl font-bold text-slate-900 mb-2">
+              <div className="mb-4 sm:mb-6">
+                <h2 className="text-xl sm:text-2xl font-bold text-slate-900 mb-1 sm:mb-2">
                   Allocation Ledger
                 </h2>
-                <p className="text-slate-600 text-sm">
+                <p className="text-slate-600 text-xs sm:text-sm">
                   Complete history of all charitable allocations with proof
                 </p>
               </div>
@@ -85,11 +85,11 @@ export default function Home() {
 
             {/* FAQ */}
             <section>
-              <div className="mb-6">
-                <h2 className="text-2xl font-bold text-slate-900 mb-2">
+              <div className="mb-4 sm:mb-6">
+                <h2 className="text-xl sm:text-2xl font-bold text-slate-900 mb-1 sm:mb-2">
                   Frequently Asked Questions
                 </h2>
-                <p className="text-slate-600 text-sm">
+                <p className="text-slate-600 text-xs sm:text-sm">
                   Everything you need to know about how this works
                 </p>
               </div>

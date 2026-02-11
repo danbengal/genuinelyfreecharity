@@ -10,7 +10,8 @@
     "postinstall": "prisma generate",
     "db:migrate": "prisma migrate dev",
     "db:seed": "npx tsx prisma/seed.ts",
-    "db:reset": "prisma migrate reset --force"
+    "db:reset": "prisma migrate reset --force",
+    "poll:rotate": "npx tsx scripts/rotate-poll.ts"
   },
   "prisma": {
     "seed": "npx tsx prisma/seed.ts"
