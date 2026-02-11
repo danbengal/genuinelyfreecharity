@@ -6,6 +6,8 @@ import ImpactDashboard from "@/components/ImpactDashboard";
 import OrganizationTotals from "@/components/OrganizationTotals";
 import AllocationLedger from "@/components/AllocationLedger";
 import FAQ from "@/components/FAQ";
+import AboutCharities from "@/components/AboutCharities";
+import CharitySubmissionForm from "@/components/CharitySubmissionForm";
 
 export default function Home() {
   return (
@@ -81,6 +83,32 @@ export default function Home() {
                 </p>
               </div>
               <AllocationLedger />
+            </section>
+
+            {/* About the Charities */}
+            <section>
+              <div className="mb-4 sm:mb-6">
+                <h2 className="text-xl sm:text-2xl font-bold text-slate-900 mb-1 sm:mb-2">
+                  About the Charities
+                </h2>
+                <p className="text-slate-600 text-xs sm:text-sm">
+                  Learn more about the organizations we support
+                </p>
+              </div>
+              <AboutCharities />
+            </section>
+
+            {/* Charity Submission Form */}
+            <section>
+              <div className="mb-4 sm:mb-6">
+                <h2 className="text-xl sm:text-2xl font-bold text-slate-900 mb-1 sm:mb-2">
+                  Suggest a Charity
+                </h2>
+                <p className="text-slate-600 text-xs sm:text-sm">
+                  Know a great charity we should consider? Let us know!
+                </p>
+              </div>
+              <CharitySubmissionForm />
             </section>
 
             {/* FAQ */}

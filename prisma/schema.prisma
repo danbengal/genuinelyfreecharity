@@ -28,13 +28,13 @@ model PollOption {
 }
 
 model Vote {
-  id        String     @id @default(cuid())
-  pollId    String
-  optionId  String
+  id          String     @id @default(cuid())
+  pollId      String
+  optionId    String
   fingerprint String
-  createdAt DateTime   @default(now())
-  poll      Poll       @relation(fields: [pollId], references: [id], onDelete: Cascade)
-  option    PollOption @relation(fields: [optionId], references: [id], onDelete: Cascade)
+  createdAt   DateTime   @default(now())
+  option      PollOption @relation(fields: [optionId], references: [id], onDelete: Cascade)
+  poll        Poll       @relation(fields: [pollId], references: [id], onDelete: Cascade)
 
   @@index([pollId])
   @@index([fingerprint, pollId])
@@ -60,14 +60,14 @@ model Recipient {
 }
 
 model ReportingPeriod {
-  id        String      @id @default(cuid())
-  label     String
-  startDate DateTime
-  endDate   DateTime
-  createdAt DateTime    @default(now())
-  revenues  AdSenseRevenueReport[]
-  costs     OperatingCost[]
+  id          String                 @id @default(cuid())
+  label       String
+  startDate   DateTime
+  endDate     DateTime
+  createdAt   DateTime               @default(now())
+  revenues    AdSenseRevenueReport[]
   allocations Allocation[]
+  costs       OperatingCost[]
 }
 
 model AdSenseRevenueReport {
@@ -103,9 +103,21 @@ model Allocation {
   notes             String?
   allocatedAt       DateTime        @default(now())
   createdAt         DateTime        @default(now())
-  recipient         Recipient       @relation(fields: [recipientId], references: [id])
   reportingPeriod   ReportingPeriod @relation(fields: [reportingPeriodId], references: [id])
+  recipient         Recipient       @relation(fields: [recipientId], references: [id])
 
   @@index([recipientId])
   @@index([reportingPeriodId])
+}
+
+model CharitySubmission {
+  id          String   @id @default(cuid())
+  charityName String
+  website     String?
+  description String?
+  reason      String?
+  submitterName  String?
+  submitterEmail String?
+  status      String   @default("pending")
+  createdAt   DateTime @default(now())
 }
