@@ -6,15 +6,14 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const { charityName, website, description, reason, submitterName, submitterEmail } = body;
 
-    // Validate required field
-    if (!charityName || charityName.trim().length === 0) {
-      return NextResponse.json(
-        { error: "Charity name is required" },
-        { status: 400 }
-      );
+    if (!charityName || typeof charityName !== "string" || charityName.trim().length === 0) {
+      return NextResponse.json({ error: "Charity name is required" }, { status: 400 });
     }
 
-    // Create submission
+    if (charityName.trim().length > 200) {
+      return NextResponse.json({ error: "Charity name is too long" }, { status: 400 });
+    }
+
     const submission = await prisma.charitySubmission.create({
       data: {
         charityName: charityName.trim(),
@@ -26,16 +25,8 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    return NextResponse.json({
-      success: true,
-      message: "Thank you for your submission!",
-      id: submission.id,
-    });
-  } catch (error) {
-    console.error("Charity submission error:", error);
-    return NextResponse.json(
-      { error: "Failed to submit charity request" },
-      { status: 500 }
-    );
+    return NextResponse.json({ success: true, id: submission.id });
+  } catch {
+    return NextResponse.json({ error: "Failed to submit request" }, { status: 500 });
   }
 }

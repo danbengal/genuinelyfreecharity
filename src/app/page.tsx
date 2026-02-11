@@ -5,9 +5,9 @@ import PollModule from "@/components/PollModule";
 import ImpactDashboard from "@/components/ImpactDashboard";
 import OrganizationTotals from "@/components/OrganizationTotals";
 import AllocationLedger from "@/components/AllocationLedger";
-import FAQ from "@/components/FAQ";
 import AboutCharities from "@/components/AboutCharities";
 import CharitySubmissionForm from "@/components/CharitySubmissionForm";
+import FAQ from "@/components/FAQ";
 
 export default function Home() {
   return (
@@ -106,6 +106,50 @@ export default function Home() {
                 </h2>
                 <p className="text-slate-600 text-xs sm:text-sm">
                   Know a great charity we should consider? Let us know!
+                </p>
+              </div>
+              <CharitySubmissionForm />
+            </section>
+
+            {/* About the Charities */}
+            <section>
+              <div className="mb-4 sm:mb-6">
+                <h2 className="text-xl sm:text-2xl font-bold text-slate-900 mb-1 sm:mb-2">
+                  About the Charities
+                </h2>
+                <p className="text-slate-600 text-xs sm:text-sm">
+                  Learn more about the organizations in our poll
+                </p>
+              </div>
+              <AboutCharities />
+            </section>
+
+            {/* Charity Submission Form */}
+            <section>
+              <CharitySubmissionForm />
+            </section>
+
+            {/* About the Charities */}
+            <section>
+              <div className="mb-4 sm:mb-6">
+                <h2 className="text-xl sm:text-2xl font-bold text-slate-900 mb-1 sm:mb-2">
+                  About the Charities
+                </h2>
+                <p className="text-slate-600 text-xs sm:text-sm">
+                  Learn more about the organizations in our current poll
+                </p>
+              </div>
+              <AboutCharities />
+            </section>
+
+            {/* Suggest a Charity */}
+            <section>
+              <div className="mb-4 sm:mb-6">
+                <h2 className="text-xl sm:text-2xl font-bold text-slate-900 mb-1 sm:mb-2">
+                  Suggest a Charity
+                </h2>
+                <p className="text-slate-600 text-xs sm:text-sm">
+                  Know a great cause? Submit a charity for consideration in future polls
                 </p>
               </div>
               <CharitySubmissionForm />

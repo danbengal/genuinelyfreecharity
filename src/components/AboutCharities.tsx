@@ -5,33 +5,33 @@ import { useState } from "react";
 const charities = [
   {
     name: "St. Jude Children's Research Hospital",
-    description: "St. Jude Children's Research Hospital is leading the way the world understands, treats and defeats childhood cancer and other life-threatening diseases. Families never receive a bill from St. Jude for treatment, travel, housing or food.",
-    mission: "Finding cures. Saving children.",
     website: "https://www.stjude.org",
+    mission: "Leading the way the world understands, treats and defeats childhood cancer and other life-threatening diseases.",
+    description: "St. Jude Children's Research Hospital is leading the way the world understands, treats and defeats childhood cancer and other life-threatening diseases. Families never receive a bill from St. Jude for treatment, travel, housing or food — so they can focus on helping their child live. Treatments invented at St. Jude have helped push the overall childhood cancer survival rate from 20% to more than 80% since it opened in 1962.",
   },
   {
     name: "Doctors Without Borders",
-    description: "Doctors Without Borders/Médecins Sans Frontières (MSF) provides medical humanitarian aid to people affected by conflict, epidemics, disasters, or exclusion from healthcare in over 70 countries.",
-    mission: "Providing lifesaving medical care to those who need it most.",
     website: "https://www.doctorswithoutborders.org",
+    mission: "Providing emergency medical humanitarian care to people in need, regardless of race, religion, or political affiliation.",
+    description: "Doctors Without Borders/Médecins Sans Frontières (MSF) is an international, independent medical humanitarian organization that delivers emergency aid to people affected by armed conflict, epidemics, healthcare exclusion and natural disasters. MSF offers assistance to people based only on need and irrespective of race, religion, gender or political affiliation.",
   },
   {
     name: "Good360",
-    description: "Good360 is a global leader in product philanthropy and purposeful giving. They partner with socially responsible companies to source highly needed goods and distribute them to nonprofits supporting people in need.",
-    mission: "Transforming lives by providing hope, dignity and a sense of renewed possibility.",
-    website: "https://www.good360.org",
+    website: "https://good360.org",
+    mission: "Transforming lives by providing hope, dignity, and a sense of renewed possibility to individuals in need.",
+    description: "Good360 is a global leader in product philanthropy and purposeful giving. They partner with socially responsible companies to source highly needed goods and distribute them through their network of diverse nonprofits that support people in need. Good360 has distributed more than $13 billion in donated goods, serving millions of people across the United States and around the world.",
   },
   {
     name: "One Child",
-    description: "One Child works to ensure that every child has access to education, healthcare, and the opportunity to thrive. They focus on supporting vulnerable children in underserved communities around the world.",
-    mission: "Empowering children to break the cycle of poverty through education and care.",
-    website: "https://www.onechild.org",
+    website: "https://onechild.org",
+    mission: "Transforming the lives of orphans and vulnerable children through Christ-centered care and education.",
+    description: "One Child provides holistic care for orphans and vulnerable children in sub-Saharan Africa. They work to transform lives by providing homes, education, healthcare, and spiritual support. Their programs focus on long-term sustainability and empowering local communities to care for children in need. Through family-style homes and quality education, they help children break the cycle of poverty.",
   },
   {
     name: "Habitat for Humanity",
-    description: "Habitat for Humanity is a global nonprofit housing organization working in local communities across all 50 states in the U.S. and in more than 70 countries. They help families build and improve places to call home.",
-    mission: "Seeking to put God's love into action, Habitat brings people together to build homes, communities and hope.",
     website: "https://www.habitat.org",
+    mission: "Seeking to put God's love into action by bringing people together to build homes, communities and hope.",
+    description: "Habitat for Humanity is a global nonprofit housing organization working in local communities across all 50 states in the U.S. and in approximately 70 countries. Habitat's vision is of a world where everyone has a decent place to live. They build and repair homes alongside families in need, helping them achieve the strength, stability and self-reliance they need to build better lives for themselves.",
   },
 ];
 
@@ -81,24 +81,27 @@ export default function AboutCharities() {
               }`}
             >
               <div className="px-4 sm:px-5 pb-4 sm:pb-5 border-t border-slate-100 pt-3 sm:pt-4 space-y-3">
+                {/* Mission */}
                 <div>
-                  <h4 className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1">
+                  <h4 className="text-xs font-semibold text-slate-700 uppercase tracking-wide mb-1">
+                    Mission
+                  </h4>
+                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                    {charity.mission}
+                  </p>
+                </div>
+
+                {/* Description */}
+                <div>
+                  <h4 className="text-xs font-semibold text-slate-700 uppercase tracking-wide mb-1">
                     About
                   </h4>
                   <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
                     {charity.description}
                   </p>
                 </div>
-                
-                <div>
-                  <h4 className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1">
-                    Mission
-                  </h4>
-                  <p className="text-xs sm:text-sm text-slate-700 leading-relaxed italic">
-                    &ldquo;{charity.mission}&rdquo;
-                  </p>
-                </div>
-                
+
+                {/* Website link */}
                 <div>
                   <a
                     href={charity.website}
@@ -107,7 +110,7 @@ export default function AboutCharities() {
                     className="inline-flex items-center gap-1.5 text-xs sm:text-sm text-blue-600 hover:text-blue-700 font-medium hover:underline"
                   >
                     Visit Website
-                    <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                     </svg>
                   </a>
