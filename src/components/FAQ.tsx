@@ -37,48 +37,34 @@ export default function FAQ() {
   const [open, setOpen] = useState<number | null>(null);
 
   return (
-    <div className="space-y-2.5 sm:space-y-3">
+    <div className="space-y-3">
       {faqs.map((faq, i) => {
         const isOpen = open === i;
-        
         return (
           <div
             key={i}
-            className="bg-white border border-slate-200 rounded-lg sm:rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow"
+            className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm transition-shadow hover:shadow-md"
           >
             <button
               onClick={() => setOpen(isOpen ? null : i)}
-              className="w-full text-left p-4 sm:p-5 flex items-center justify-between gap-3 sm:gap-4 hover:bg-gray-50 transition-colors group touch-manipulation"
+              className="w-full text-left p-5 sm:p-6 flex items-center justify-between gap-4 hover:bg-slate-50 transition-colors"
             >
-              <span className="font-medium text-slate-900 pr-2 sm:pr-4 text-sm sm:text-base leading-snug">
-                {faq.q}
-              </span>
-              
-              {/* Animated chevron */}
+              <span className="font-semibold text-slate-900 sm:text-lg pr-4">{faq.q}</span>
               <svg
-                className={`w-5 h-5 text-slate-400 shrink-0 transition-all duration-300 group-hover:text-slate-600 ${
-                  isOpen ? "rotate-180" : ""
-                }`}
+                className={`w-5 h-5 text-slate-400 shrink-0 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M19 9l-7 7-7-7"
-                />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
               </svg>
             </button>
-            
-            {/* Animated content */}
             <div
               className={`overflow-hidden transition-all duration-300 ease-in-out ${
                 isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
               }`}
             >
-              <div className="px-4 sm:px-5 pb-4 sm:pb-5 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-3 sm:pt-4">
+              <div className="px-5 sm:px-6 pb-5 sm:pb-6 text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-4">
                 {faq.a}
               </div>
             </div>

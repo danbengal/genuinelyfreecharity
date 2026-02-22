@@ -52,21 +52,20 @@ export default function AllocationLedger() {
 
   if (entries.length === 0) {
     return (
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-12 text-center">
-        <div className="text-4xl mb-3 opacity-50">📋</div>
-        <p className="text-slate-600">No allocations recorded yet.</p>
-        <p className="text-sm text-slate-400 mt-1">Transparency ledger will appear here.</p>
+      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-12 text-center">
+        <div className="text-4xl mb-3 opacity-40">📋</div>
+        <p className="text-slate-600 font-medium">No allocations recorded yet.</p>
+        <p className="text-sm text-slate-400 mt-1">The transparency ledger will appear here.</p>
       </div>
     );
   }
 
   return (
     <div>
-      {/* Download button */}
       <div className="flex justify-end mb-4">
         <button
           onClick={downloadCSV}
-          className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-blue-600 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-colors"
+          className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-blue-600 hover:text-blue-500 hover:bg-blue-50 rounded-lg transition-colors"
         >
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -75,49 +74,40 @@ export default function AllocationLedger() {
         </button>
       </div>
 
-      {/* Desktop/Tablet table */}
-      <div className="hidden sm:block bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+      {/* Desktop table */}
+      <div className="hidden sm:block bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
-            <thead className="bg-gray-50 border-b border-slate-200">
+            <thead className="bg-slate-50 border-b border-slate-200">
               <tr>
-                <th className="py-3 px-4 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">Date</th>
-                <th className="py-3 px-4 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">Recipient</th>
-                <th className="py-3 px-4 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">Period</th>
-                <th className="py-3 px-4 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">Gross</th>
-                <th className="py-3 px-4 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">Costs</th>
-                <th className="py-3 px-4 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">Net</th>
-                <th className="py-3 px-4 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">Proof</th>
-                <th className="py-3 px-4 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">Notes</th>
+                <th className="py-3.5 px-5 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">Date</th>
+                <th className="py-3.5 px-5 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">Recipient</th>
+                <th className="py-3.5 px-5 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">Period</th>
+                <th className="py-3.5 px-5 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">Gross</th>
+                <th className="py-3.5 px-5 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">Costs</th>
+                <th className="py-3.5 px-5 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">Net</th>
+                <th className="py-3.5 px-5 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">Proof</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
               {entries.map((e) => (
-                <tr key={e.id} className="hover:bg-gray-50 transition-colors">
-                  <td className="py-3 px-4 whitespace-nowrap text-slate-700">
-                    {new Date(e.allocatedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                <tr key={e.id} className="hover:bg-slate-50 transition-colors">
+                  <td className="py-3.5 px-5 whitespace-nowrap text-slate-600">
+                    {new Date(e.allocatedAt).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
                   </td>
-                  <td className="py-3 px-4 font-medium text-slate-900">{e.recipientName}</td>
-                  <td className="py-3 px-4 text-slate-600">{e.periodLabel}</td>
-                  <td className="py-3 px-4 text-slate-700">{formatCurrency(e.grossRevenue)}</td>
-                  <td className="py-3 px-4 text-slate-700">{formatCurrency(e.operatingCosts)}</td>
-                  <td className="py-3 px-4 font-semibold text-slate-900">{formatCurrency(e.netAmount)}</td>
-                  <td className="py-3 px-4">
+                  <td className="py-3.5 px-5 font-medium text-slate-900">{e.recipientName}</td>
+                  <td className="py-3.5 px-5 text-slate-600">{e.periodLabel}</td>
+                  <td className="py-3.5 px-5 text-slate-600">{formatCurrency(e.grossRevenue)}</td>
+                  <td className="py-3.5 px-5 text-slate-600">{formatCurrency(e.operatingCosts)}</td>
+                  <td className="py-3.5 px-5 font-semibold text-slate-900">{formatCurrency(e.netAmount)}</td>
+                  <td className="py-3.5 px-5">
                     {e.proofUrl ? (
-                      <a
-                        href={e.proofUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-blue-600 hover:text-blue-700 hover:underline transition-colors"
-                      >
+                      <a href={e.proofUrl} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-500">
                         View
                       </a>
                     ) : (
                       <span className="text-slate-400">—</span>
                     )}
-                  </td>
-                  <td className="py-3 px-4 text-slate-500 max-w-xs truncate">
-                    {e.notes || <span className="text-slate-400">—</span>}
                   </td>
                 </tr>
               ))}
@@ -127,60 +117,34 @@ export default function AllocationLedger() {
       </div>
 
       {/* Mobile cards */}
-      <div className="sm:hidden space-y-4">
+      <div className="sm:hidden space-y-3">
         {entries.map((e) => (
-          <div
-            key={e.id}
-            className="bg-white rounded-xl border border-slate-200 shadow-sm p-5"
-          >
+          <div key={e.id} className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5">
             <div className="flex items-start justify-between mb-3">
               <span className="font-semibold text-slate-900">{e.recipientName}</span>
               <span className="text-xs text-slate-500">
-                {new Date(e.allocatedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                {new Date(e.allocatedAt).toLocaleDateString("en-US", { month: "short", day: "numeric" })}
               </span>
             </div>
-            
             <div className="text-xs text-slate-500 mb-4">{e.periodLabel}</div>
-            
-            <div className="grid grid-cols-3 gap-3 mb-4">
+            <div className="grid grid-cols-3 gap-3 mb-3">
               <div>
                 <div className="text-xs text-slate-400 mb-1">Gross</div>
-                <div className="text-sm font-medium text-slate-700">
-                  {formatCurrency(e.grossRevenue)}
-                </div>
+                <div className="text-sm font-medium text-slate-700">{formatCurrency(e.grossRevenue)}</div>
               </div>
               <div>
                 <div className="text-xs text-slate-400 mb-1">Costs</div>
-                <div className="text-sm font-medium text-slate-700">
-                  {formatCurrency(e.operatingCosts)}
-                </div>
+                <div className="text-sm font-medium text-slate-700">{formatCurrency(e.operatingCosts)}</div>
               </div>
               <div>
                 <div className="text-xs text-slate-400 mb-1">Net</div>
-                <div className="text-sm font-bold text-slate-900">
-                  {formatCurrency(e.netAmount)}
-                </div>
+                <div className="text-sm font-bold text-slate-900">{formatCurrency(e.netAmount)}</div>
               </div>
             </div>
-            
             {e.proofUrl && (
-              <a
-                href={e.proofUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 text-xs text-blue-600 hover:text-blue-700 hover:underline transition-colors mb-2"
-              >
-                <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                </svg>
-                View proof
+              <a href={e.proofUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-xs text-blue-600 hover:text-blue-500">
+                View proof →
               </a>
-            )}
-            
-            {e.notes && (
-              <p className="text-xs text-slate-500 mt-2 pt-2 border-t border-slate-100">
-                {e.notes}
-              </p>
             )}
           </div>
         ))}

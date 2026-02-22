@@ -27,87 +27,45 @@ export default function ImpactDashboard() {
 
   if (!data) {
     return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 animate-pulse">
+      <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
         {[1, 2, 3, 4, 5, 6].map((i) => (
-          <div key={i} className="h-28 sm:h-32 bg-gray-50 rounded-xl border border-slate-200" />
+          <div key={i} className="h-32 bg-slate-50 rounded-2xl border border-slate-200 animate-pulse" />
         ))}
       </div>
     );
   }
 
   const cards = [
-    { 
-      label: "Total Allocated", 
-      sublabel: "Lifetime", 
-      value: formatCurrency(data.totalAllocated),
-      icon: "💰",
-      highlight: true 
-    },
-    { 
-      label: "Allocated Today", 
-      sublabel: "Last 24 hours", 
-      value: formatCurrency(data.allocatedToday),
-      icon: "📅" 
-    },
-    { 
-      label: "This Month", 
-      sublabel: "Current month", 
-      value: formatCurrency(data.allocatedThisMonth),
-      icon: "📊" 
-    },
-    { 
-      label: "Last 30 Days", 
-      sublabel: "Rolling total", 
-      value: formatCurrency(data.allocatedLast30Days),
-      icon: "📈" 
-    },
-    { 
-      label: "Last Allocation", 
-      sublabel: "Most recent", 
-      value: data.lastAllocationDate 
-        ? new Date(data.lastAllocationDate).toLocaleDateString('en-US', { 
-            month: 'short', 
-            day: 'numeric', 
-            year: 'numeric' 
-          }) 
+    { label: "Total Allocated", value: formatCurrency(data.totalAllocated), icon: "💰", highlight: true },
+    { label: "Allocated Today", value: formatCurrency(data.allocatedToday), icon: "📅" },
+    { label: "This Month", value: formatCurrency(data.allocatedThisMonth), icon: "📊" },
+    { label: "Last 30 Days", value: formatCurrency(data.allocatedLast30Days), icon: "📈" },
+    {
+      label: "Last Allocation",
+      value: data.lastAllocationDate
+        ? new Date(data.lastAllocationDate).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })
         : "—",
-      icon: "🗓️" 
+      icon: "🗓️",
     },
-    { 
-      label: "Organizations", 
-      sublabel: "Supported", 
-      value: data.recipientCount.toString(),
-      icon: "🏢" 
-    },
+    { label: "Organizations", value: data.recipientCount.toString(), icon: "🏢" },
   ];
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-      {cards.map((card, i) => (
+    <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
+      {cards.map((card) => (
         <div
           key={card.label}
-          className={`bg-white rounded-xl shadow-sm border border-slate-200 p-4 sm:p-6 hover:shadow-md transition-shadow ${
-            card.highlight ? 'ring-2 ring-blue-600 ring-opacity-20' : ''
+          className={`bg-white rounded-2xl border shadow-sm p-5 sm:p-6 transition-shadow hover:shadow-md ${
+            card.highlight ? "border-blue-200 ring-1 ring-blue-100" : "border-slate-200"
           }`}
-          style={{ animationDelay: `${i * 50}ms` }}
         >
-          <div className="flex items-start justify-between mb-2 sm:mb-3">
-            <div className="flex-1">
-              <div className="text-xs sm:text-sm font-medium text-slate-500 mb-1">
-                {card.label}
-              </div>
-              <div className="text-xs text-slate-400">
-                {card.sublabel}
-              </div>
-            </div>
-            <div className="text-xl sm:text-2xl opacity-50">
-              {card.icon}
-            </div>
+          <div className="flex items-center justify-between mb-3">
+            <span className="text-xs font-medium text-slate-500 uppercase tracking-wider">
+              {card.label}
+            </span>
+            <span className="text-lg opacity-50">{card.icon}</span>
           </div>
-          
-          <div className={`text-2xl sm:text-3xl font-bold ${
-            card.highlight ? 'text-blue-600' : 'text-slate-900'
-          }`}>
+          <div className={`text-2xl sm:text-3xl font-bold ${card.highlight ? "text-blue-600" : "text-slate-900"}`}>
             {card.value}
           </div>
         </div>

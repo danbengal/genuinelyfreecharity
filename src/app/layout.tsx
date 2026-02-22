@@ -2,37 +2,43 @@ import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({ 
+const inter = Inter({
   subsets: ["latin"],
-  display: 'swap',
-  variable: '--font-inter',
+  display: "swap",
+  variable: "--font-inter",
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://genuinelyfreecharity.com"),
-  title: "genuinelyfreecharity.com — Daily Poll, Real Impact",
-  description: "Answer a daily poll. Ad revenue supports charities. Full transparency, always.",
-  keywords: ["charity", "poll", "ad revenue", "transparency", "donation", "nonprofit"],
+  title: "Genuinely Free Charity — Your Visit Supports Real Charities",
+  description:
+    "Answer a daily poll. We show ads. 100% of net revenue goes to verified charities like St. Jude, Doctors Without Borders, and Habitat for Humanity. No signup, no donations required.",
+  keywords: [
+    "charity",
+    "free charity",
+    "daily poll",
+    "ad revenue charity",
+    "transparency",
+    "nonprofit support",
+    "St. Jude",
+    "Doctors Without Borders",
+    "Habitat for Humanity",
+  ],
   authors: [{ name: "genuinelyfreecharity.com" }],
   openGraph: {
     type: "website",
     url: "https://genuinelyfreecharity.com",
-    title: "genuinelyfreecharity.com — Daily Poll, Real Impact",
-    description: "Answer a daily poll. Ad revenue supports charities. Full transparency, always.",
-    siteName: "genuinelyfreecharity.com",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "genuinelyfreecharity.com",
-      },
-    ],
+    title: "Genuinely Free Charity — Your Visit Supports Real Charities",
+    description:
+      "Answer a daily poll. We show ads. 100% of net revenue goes to verified charities. No signup, no donations required.",
+    siteName: "Genuinely Free Charity",
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Genuinely Free Charity" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "genuinelyfreecharity.com — Daily Poll, Real Impact",
-    description: "Answer a daily poll. Ad revenue supports charities. Full transparency, always.",
+    title: "Genuinely Free Charity — Your Visit Supports Real Charities",
+    description:
+      "Answer a daily poll. We show ads. 100% of net revenue goes to verified charities.",
     images: ["/og-image.png"],
   },
   icons: {
@@ -46,7 +52,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
-  themeColor: "#2563eb",
+  themeColor: "#ffffff",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

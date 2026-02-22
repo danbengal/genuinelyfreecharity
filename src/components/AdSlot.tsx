@@ -19,8 +19,8 @@ export default function AdSlot({ slot, format = "auto", className = "" }: AdSlot
     try {
       ((window as any).adsbygoogle = (window as any).adsbygoogle || []).push({});
       pushed.current = true;
-    } catch (e) {
-      // AdSense not loaded yet or ad blocker
+    } catch {
+      // AdSense not loaded or ad blocker active
     }
   }, []);
 
